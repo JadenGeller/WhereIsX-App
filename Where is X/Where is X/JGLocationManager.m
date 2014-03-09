@@ -93,6 +93,7 @@ NSString * const JGLocationsArrayKey = @"com.whereis.locations.saved";
     NSObject *obj = [self.locations objectAtIndex:oldIndex];
     [_locations removeObjectAtIndex:oldIndex];
     [_locations insertObject:obj atIndex:newIndex];
+    [self save];
 }
 
 -(NSArray*)locations{
