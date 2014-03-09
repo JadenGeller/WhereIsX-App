@@ -53,6 +53,7 @@
     if (!_ranger) {
         _ranger = [[JGBSSIDRanger alloc]init];
         _ranger.delegate = self;
+        _ranger.record = YES;
     }
     return _ranger;
 }

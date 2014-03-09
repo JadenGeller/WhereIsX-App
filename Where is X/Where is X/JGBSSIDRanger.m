@@ -46,7 +46,7 @@
 }
 
 -(void)startTimer{
-    self.searchTimer = [NSTimer scheduledTimerWithTimeInterval:self.searchInterval target:self selector:@selector(performSearchForDelegate) userInfo:nil repeats:NO];
+    self.searchTimer = [NSTimer scheduledTimerWithTimeInterval:self.searchInterval target:self selector:@selector(performSearchForDelegate) userInfo:nil repeats:YES];
 }
 
 -(void)performSearchForDelegate{
@@ -62,7 +62,6 @@
         [_BSSIDs addObject:BSSID];
         return BSSID;
     }
-    if (self.ranging) [self startTimer];
     return nil;
 }
 
@@ -93,6 +92,10 @@
         if (info && [info count]) break;
     }
     return info[@"BSSID"];
+}
+
+-(void)dealloc{
+    [self.searchTimer invalidate];
 }
 
 @end
