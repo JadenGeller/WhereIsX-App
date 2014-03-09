@@ -29,9 +29,10 @@ NSString * const JGLocationsArrayKey = @"com.whereis.locations.saved";
 
 -(id)init{
     if (self = [super init]) {
-        _locations = [[NSUserDefaults standardUserDefaults]arrayForKey:JGLocationsArrayKey].mutableCopy;
-        _locations = [NSMutableArray array];
-        
+        _locations = [[NSKeyedUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults]objectForKey:JGLocationsArrayKey]] mutableCopy];
+        if (!_locations) {
+            _locations = [NSMutableArray array];
+        }
         [self.regionManager startMonitoringSignificantLocationChanges];
         [self trackAllLocations];
     }
@@ -138,8 +139,7 @@ NSString * const JGLocationsArrayKey = @"com.whereis.locations.saved";
 }
 
 -(void)save{
-    //[[NSUserDefaults standardUserDefaults] setObject:self.locations forKey:JGLocationsArrayKey];
-    // CANT SAVE TO DISK BECAUSE NSUSERDEFAULTS SUCKS WHEN IT COMES TO ANYTHIGN
+    [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:self.locations] forKey:JGLocationsArrayKey];
 }
 
 -(void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region{

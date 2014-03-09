@@ -8,6 +8,7 @@
 
 #import "JGConfigureLocationViewController.h"
 #import "JGLocationManager.h"
+#import "JGViewController.h"
 
 @interface JGConfigureLocationViewController ()
 
@@ -65,6 +66,7 @@
 -(void)addLocation:(NSObject<NSCopying>*)location withDescription:(NSString*)description{
     [self.manager addLocation:location];
     [self.locationStrings setObject:description forKey:location];
+    [[NSUserDefaults standardUserDefaults]setObject:[NSKeyedArchiver archivedDataWithRootObject:self.locationStrings] forKey:JGLocationStringsDictionaryKey];
     
     [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.manager.locations.count-1 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
 }

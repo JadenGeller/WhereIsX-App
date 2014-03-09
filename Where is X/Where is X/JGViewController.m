@@ -43,9 +43,11 @@ NSString * const JGLocationStringsDictionaryKey = @"com.whereis.locationstrings.
     _manager = [[JGLocationManager alloc]init];
     _manager.delegate = self;
     
-    [self addLocation:[JGWifiLocation wifiLocationWithNetworkData:@[@"20:aa:4b:d5:3f:9e",@"0:b:86:32:f8:72",@"0:1a:1e:6d:45:12",@"0:b:86:32:f8:e2",@"0:b:86:32:f6:82",@"0:b:86:32:f7:12",@"0:b:86:33:16:22",@"0:b:86:32:f8:2"] circularRegion:self.caltechRegion] withDescriptor:@"in Ruddock"];
-    [self addLocation:[[CLBeaconRegion alloc]initWithProximityUUID:[[NSUUID alloc]initWithUUIDString:@"D57092AC-DFAA-446C-8EF3-C81AA22815B5"] identifier:@"blah"] withDescriptor:@"in his room"];
-    [self addLocation:self.caltechRegion withDescriptor:@"on campus"];
+    
+    
+//    [self addLocation:[JGWifiLocation wifiLocationWithNetworkData:@[@"20:aa:4b:d5:3f:9e",@"0:b:86:32:f8:72",@"0:1a:1e:6d:45:12",@"0:b:86:32:f8:e2",@"0:b:86:32:f6:82",@"0:b:86:32:f7:12",@"0:b:86:33:16:22",@"0:b:86:32:f8:2"] circularRegion:self.caltechRegion] withDescriptor:@"in Ruddock"];
+//    [self addLocation:[[CLBeaconRegion alloc]initWithProximityUUID:[[NSUUID alloc]initWithUUIDString:@"D57092AC-DFAA-446C-8EF3-C81AA22815B5"] identifier:@"blah"] withDescriptor:@"in his room"];
+//    [self addLocation:self.caltechRegion withDescriptor:@"on campus"];
 
 }
 
@@ -65,7 +67,7 @@ NSString * const JGLocationStringsDictionaryKey = @"com.whereis.locationstrings.
 
 -(NSMutableDictionary*)locationStrings{
     if (!_locationStrings) {
-        _locationStrings = [[NSUserDefaults standardUserDefaults]dictionaryForKey:JGLocationStringsDictionaryKey].mutableCopy;
+        _locationStrings = [[NSKeyedUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults]objectForKey:JGLocationStringsDictionaryKey]]mutableCopy];
         if (!_locationStrings) {
             _locationStrings = [NSMutableDictionary dictionary];
         }
@@ -108,11 +110,13 @@ NSString * const JGLocationStringsDictionaryKey = @"com.whereis.locationstrings.
     }
     return _caltechRegion;
 }
-
--(void)addLocation:(NSObject<NSCopying> *)location withDescriptor:(NSString*)string{
-    [self.manager addLocation:location];
-    [self.locationStrings setObject:string forKey:location];
-}
+//
+//-(void)addLocation:(NSObject<NSCopying> *)location withDescriptor:(NSString*)string{
+//    [self.manager addLocation:location];
+//    [self.locationStrings setObject:string forKey:location];
+//    [[NSUserDefaults standardUserDefaults]setObject:[NSKeyedArchiver archivedDataWithRootObject:self.locationStrings] forKey:JGLocationStringsDictionaryKey];
+//
+//}
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     UINavigationController *nav = segue.destinationViewController;

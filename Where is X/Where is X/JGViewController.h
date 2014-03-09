@@ -10,6 +10,8 @@
 #import "JGLocationManager.h"
 #import "JGConfigureLocationViewController.h"
 
+extern NSString * const JGLocationStringsDictionaryKey;
+
 @interface JGViewController : UIViewController <JGLocationManagerDelegate, JGConfigureLocationProtocol>
 
 @property (weak, nonatomic) IBOutlet UILabel *indicatorLabel;
