@@ -166,11 +166,12 @@
         
         [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:self.searchInterval];
     }
-    else if(currentBSSID && [location.networkData containsObject:currentBSSID]){
+    [self.watched addObject:location];
+
+    if(currentBSSID && [location.networkData containsObject:currentBSSID]){
         [self changedRegion:currentBSSID];
     }
     
-    [self.watched addObject:location];
 }
 
 -(void)setSearchInterval:(NSTimeInterval)searchInterval{
