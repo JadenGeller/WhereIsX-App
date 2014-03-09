@@ -30,5 +30,6 @@
 -(void)addLocation:(NSObject*)location;
 -(void)removeLocationAtIndex:(NSInteger)index;
 -(void)moveLocationAtIndex:(NSInteger)oldIndex toIndex:(NSInteger)newIndex;
+-(void)updateHighestPriorityEnteredRegion;
 
 @end

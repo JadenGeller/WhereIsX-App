@@ -56,6 +56,7 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         [self.manager removeLocationAtIndex:indexPath.row];
         [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.manager updateHighestPriorityEnteredRegion];
     }
 }
 

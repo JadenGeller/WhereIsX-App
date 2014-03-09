@@ -58,19 +58,23 @@
 
 -(void)startMonitoringForLocation:(JGWifiLocation*)location{
     [self.locations addObject:location];
-    
+    [self.regions addObject:location.associatedCircularRegion];
+
     if ([self.regions countForObject:location.associatedCircularRegion] == 0) {
         [self.manager startMonitoringForRegion:location.associatedCircularRegion];
          NSLog(@"a");
     }
-    NSLog(@"A %@", location.associatedCircularRegion);
     // this will add it to watched if we are in the region
     [self.manager requestStateForRegion:location.associatedCircularRegion];
     
-    [self.regions addObject:location.associatedCircularRegion];
+    
+    // Core location is a bitch
+    [self startWatching:location];
+    
 }
 
 -(void)stopMonitoringForLocation:(JGWifiLocation*)location{
+    [self stopWatching:location];
     [self.locations removeObject:location];
     
     [self.regions removeObject:location.associatedCircularRegion];
